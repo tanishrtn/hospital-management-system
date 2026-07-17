@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <meta charset="UTF-8">
+    <title>NoctraCare</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+        /* Smooth scroll + nicer feel */
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-950 text-gray-100">
+
+<div class="flex min-h-screen">
+
+    <!-- Sidebar -->
+    <div class="w-64 bg-gray-900 border-r border-gray-800 p-6 flex flex-col">
+
+        <!-- Logo -->
+        <h2 class="text-2xl font-bold mb-10 text-blue-400 tracking-wide">
+            KMC
+        </h2>
+
+        <!-- Navigation -->
+        <ul class="space-y-3 text-gray-400 flex-1">
+
+            <li>
+                <a href="{% url 'dashboard' %}"
+                   class="block px-4 py-2 rounded-lg hover:bg-gray-800 hover:text-white transition">
+                    Dashboard
+                </a>
+            </li>
+
+            <li>
+                <a href="{% url 'patients' %}"
+                   class="block px-4 py-2 rounded-lg hover:bg-gray-800 hover:text-white transition">
+                    Patients
+                </a>
+            </li>
+
+            <li>
+                <a href="{% url 'doctors' %}"
+                   class="block px-4 py-2 rounded-lg hover:bg-gray-800 hover:text-white transition">
+                    Doctors
+                </a>
+            </li>
+
+            <li>
+                <a href="{% url 'appointments' %}"
+                   class="block px-4 py-2 rounded-lg hover:bg-gray-800 hover:text-white transition">
+                    Appointments
+                </a>
+            </li>
+
+        </ul>
+
+        <!-- Logout -->
+        <a href="{% url 'logout' %}"
+           class="mt-6 px-4 py-2 rounded-lg bg-red-500/10 text-red-400 hover:bg-red-500/20 transition text-center">
+            Logout
+        </a>
+
+    </div>
+
+    <!-- Main Content -->
+    <div class="flex-1 p-8">
+
+        <!-- Top Bar -->
+        <div class="mb-6 flex justify-between items-center">
+            <h1 class="text-2xl font-semibold text-white tracking-wide">
+                {% block title %}Dashboard{% endblock %}
+            </h1>
+
+            <div class="text-sm text-gray-400">
+                Welcome back 👀
+            </div>
+        </div>
+
+        <!-- Content -->
+        <div class="bg-gray-900 border border-gray-800 rounded-xl p-6 shadow-lg">
+            {% block content %}
+            {% endblock %}
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

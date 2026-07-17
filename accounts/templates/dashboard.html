@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+
+<div class="flex justify-between items-center mb-8">
+    <h1 class="text-3xl font-bold tracking-wide">Dashboard</h1>
+    <p class="text-sm text-gray-400">Welcome back </p>
+</div>
+
+<!-- STATS -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+
+    <div class="bg-gradient-to-br from-blue-900 to-blue-700 p-6 rounded-2xl shadow-lg hover:scale-[1.02] transition">
+        <p class="text-gray-300 text-sm">Total Patients</p>
+        <h2 class="text-4xl font-bold mt-2">{{ patients }}</h2>
+    </div>
+
+    <div class="bg-gradient-to-br from-purple-900 to-purple-700 p-6 rounded-2xl shadow-lg hover:scale-[1.02] transition">
+        <p class="text-gray-300 text-sm">Total Doctors</p>
+        <h2 class="text-4xl font-bold mt-2">{{ doctors }}</h2>
+    </div>
+
+    <div class="bg-gradient-to-br from-green-900 to-green-700 p-6 rounded-2xl shadow-lg hover:scale-[1.02] transition">
+        <p class="text-gray-300 text-sm">Appointments</p>
+        <h2 class="text-4xl font-bold mt-2">{{ appointments }}</h2>
+    </div>
+
+</div>
+
+<!-- DATA SECTION -->
+<div class="grid md:grid-cols-2 gap-6">
+
+    <!-- RECENT PATIENTS -->
+    <div class="bg-gray-900 border border-gray-800 p-6 rounded-2xl shadow-lg">
+        <h2 class="text-xl font-semibold mb-4"> Patients</h2>
+
+        {% if recent_patients %}
+            {% for p in recent_patients %}
+            <div class="flex justify-between items-center border-b border-gray-800 py-3 hover:bg-gray-800 px-2 rounded transition">
+                <div>
+                    <p class="font-medium">{{ p.name }}</p>
+                    <p class="text-xs text-gray-400">{{ p.reason }}</p>
+                </div>
+                <span class="text-xs text-gray-500">{{ p.visit_date }}</span>
+            </div>
+            {% endfor %}
+        {% else %}
+            <p class="text-gray-500 text-sm">No patients yet</p>
+        {% endif %}
+    </div>
+
+    <!-- DOCTORS -->
+    <div class="bg-gray-900 border border-gray-800 p-6 rounded-2xl shadow-lg">
+        <h2 class="text-xl font-semibold mb-4">Doctors</h2>
+
+        {% if doctors_list %}
+            {% for d in doctors_list %}
+            <div class="border-b border-gray-800 py-3 hover:bg-gray-800 px-2 rounded transition">
+                <p class="font-medium">{{ d.name }}</p>
+                <p class="text-xs text-gray-400">
+                    {{ d.department }} • {{ d.specialization }}
+                </p>
+                <p class="text-xs text-gray-500">
+                    {{ d.qualification }} • {{ d.experience }} yrs exp
+                </p>
+            </div>
+            {% endfor %}
+        {% else %}
+            <p class="text-gray-500 text-sm">No doctors available</p>
+        {% endif %}
+    </div>
+
+</div>
+
+{% endblock %}

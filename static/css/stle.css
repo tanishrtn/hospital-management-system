@@ -1,0 +1,18 @@
+/* FIX INPUT TEXT VISIBILITY */
+input, textarea, select {
+    color: white;
+    background-color: #1f2937; /* dark gray */
+    border: 1px solid #374151;
+}
+
+/* Placeholder text */
+input::placeholder,
+textarea::placeholder {
+    color: gray !important;
+}
+
+/* Dropdown options */
+select option {
+    color: black;
+    background: white;
+}
