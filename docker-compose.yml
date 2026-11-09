@@ -1,0 +1,15 @@
+services:
+  web:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      DJANGO_SECRET_KEY: local-compose-secret-change-before-deployment
+      DJANGO_DEBUG: "True"
+      DJANGO_ALLOWED_HOSTS: 127.0.0.1,localhost
+      DJANGO_DB_PATH: /app/data/db.sqlite3
+    volumes:
+      - hospital_data:/app/data
+
+volumes:
+  hospital_data:
