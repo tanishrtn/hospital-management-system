@@ -8,6 +8,8 @@
 <form method="POST" class="grid grid-cols-2 gap-4 mb-6">
     {% csrf_token %}
 
+    {% if form.errors %}<div class="col-span-2 text-red-300">{{ form.errors }}</div>{% endif %}
+
     <input name="name" placeholder="Name" class="p-2 rounded bg-gray-800 border border-gray-700">
     <input name="age" placeholder="Age" class="p-2 rounded bg-gray-800 border border-gray-700">
     <input name="gender" placeholder="Gender" class="p-2 rounded bg-gray-800 border border-gray-700">
@@ -32,7 +34,10 @@
         <td>{{ p.age }}</td>
         <td>{{ p.reason }}</td>
         <td>
-            <a href="{% url 'delete_patient' p.id %}" class="text-red-400">Delete</a>
+            <form method="post" action="{% url 'delete_patient' p.id %}">
+                {% csrf_token %}
+                <button type="submit" class="text-red-400">Delete</button>
+            </form>
         </td>
     </tr>
     {% endfor %}

@@ -7,6 +7,7 @@
 
     <form method="POST" class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
         {% csrf_token %}
+        {% if form.errors %}<div class="md:col-span-2 text-red-300">{{ form.errors }}</div>{% endif %}
 
         <!-- Patient -->
         <div>
@@ -63,7 +64,10 @@
                 <td class="py-2">{{ a.doctor.name }} ({{ a.doctor.department }})</td>
                 <td class="py-2">{{ a.date }}</td>
                 <td class="py-2">
-                    <a href="{% url 'delete_appointment' a.id %}" class="text-red-500">Delete</a>
+                    <form method="post" action="{% url 'delete_appointment' a.id %}">
+                        {% csrf_token %}
+                        <button type="submit" class="text-red-500">Delete</button>
+                    </form>
                 </td>
             </tr>
             {% endfor %}
