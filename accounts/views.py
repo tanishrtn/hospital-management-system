@@ -1,5 +1,8 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth import login, authenticate, logout
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages
+from django.views.decorators.http import require_POST
 from .forms import UserRegisterForm, PatientForm, DoctorForm, AppointmentForm
 from .models import Patient, Doctor, Appointment
 
@@ -20,6 +23,7 @@ def login_view(request):
         if user:
             login(request, user)
             return redirect('dashboard')
+        messages.error(request, 'Invalid username or password.')
 
     return render(request, 'accounts/login.html')
 
@@ -45,6 +49,7 @@ def logout_view(request):
 
 
 # DASHBOARD
+@login_required
 def dashboard(request):
     return render(request, 'dashboard.html', {
         'patients': Patient.objects.count(),
@@ -56,6 +61,7 @@ def dashboard(request):
 
 
 # PATIENTS
+@login_required
 def patients_view(request):
     if request.method == 'POST':
         form = PatientForm(request.POST)
@@ -73,12 +79,15 @@ def patients_view(request):
     })
 
 
+@login_required
+@require_POST
 def delete_patient(request, id):
-    Patient.objects.get(id=id).delete()
+    get_object_or_404(Patient, id=id).delete()
     return redirect('patients')
 
 
 # DOCTORS
+@login_required
 def doctors_view(request):
     if request.method == 'POST':
         form = DoctorForm(request.POST)
@@ -96,12 +105,15 @@ def doctors_view(request):
     })
 
 
+@login_required
+@require_POST
 def delete_doctor(request, id):
-    Doctor.objects.get(id=id).delete()
+    get_object_or_404(Doctor, id=id).delete()
     return redirect('doctors')
 
 
 # APPOINTMENTS
+@login_required
 def appointments_view(request):
     if request.method == 'POST':
         form = AppointmentForm(request.POST)
@@ -119,6 +131,8 @@ def appointments_view(request):
     })
 
 
+@login_required
+@require_POST
 def delete_appointment(request, id):
-    Appointment.objects.get(id=id).delete()
+    get_object_or_404(Appointment, id=id).delete()
     return redirect('appointments')
