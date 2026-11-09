@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     {% load static %}
-<link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/stle.css' %}">
     <meta charset="UTF-8">
     <title>NoctraCare</title>
     <script src="https://cdn.tailwindcss.com"></script>
@@ -84,6 +84,11 @@
 
         <!-- Content -->
         <div class="bg-gray-900 border border-gray-800 rounded-xl p-6 shadow-lg">
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="mb-4 rounded-lg bg-red-500/10 px-4 py-3 text-red-300">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
             {% block content %}
             {% endblock %}
         </div>
